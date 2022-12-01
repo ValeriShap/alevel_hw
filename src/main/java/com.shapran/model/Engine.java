@@ -1,21 +1,15 @@
-package model;
+package com.shapran.model;
 
 public class Engine {
-
+    protected String type;
     private int power;
-    private String type;
 
-    public Engine(int power, String type) {
-        this.power = power;
+    public Engine(String type) {
         this.type = type;
     }
 
     public int getPower() {
         return power;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
     }
 
     public String getType() {
@@ -24,5 +18,9 @@ public class Engine {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void printType(){
+        System.out.println("***" + type + "***");
     }
 }
