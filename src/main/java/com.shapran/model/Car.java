@@ -10,11 +10,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-public class Car {
+public abstract class Car {
     private final String id;
     private String manufacturer;
     private Color color;
-    private int count;
+    protected int count;
     private int price;
     private Engine engine;
     private final Random random = new Random();

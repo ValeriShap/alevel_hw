@@ -1,7 +1,6 @@
 package com.shapran.service;
-import com.shapran.model.Color;
-import com.shapran.model.Car;
-import com.shapran.model.Engine;
+
+import com.shapran.model.*;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.util.RandomGenerator;
 
@@ -11,11 +10,13 @@ import java.util.Random;
 public class CarService {
     private final CarArrayRepository carArrayRepository;
     private Random random = new Random();
+
     public CarService(final CarArrayRepository carArrayRepository) {
         this.carArrayRepository = carArrayRepository;
     }
+
     public Car createCar() {
-        Car car = new Car();
+        Car car = new PassengerCar();
         car.setManufacturer(randomString());
         car.setEngine(new Engine(randomString()));
         car.setColor(randomColor());
@@ -23,6 +24,7 @@ public class CarService {
         car.setPrice(randomNumber());
         carArrayRepository.save(car);
         return car;
+
     }
 
     public int create(RandomGenerator randomGenerator) {
@@ -59,6 +61,7 @@ public class CarService {
         }
         carArrayRepository.delete(id);
     }
+
     public void print(Car car) {
         System.out.println(car);
     }
@@ -85,15 +88,34 @@ public class CarService {
     }
 
     public static void check(Car car) {
-        if (car.getCount() > 0 && car.getEngine().getPower() > 200) {
-            System.out.println("The car is ready for sale");
-        } else if (car.getCount() == 0 && car.getEngine().getPower() < 200) {
-            System.out.println("Car is not available and low power");
-        } else if (car.getCount() == 0) {
-            System.out.println("Car is not available");
-        } else if (car.getEngine().getPower() < 200) {
-            System.out.println("Low power");
+        if (car.getEngine() == null) {
+            System.out.println("Engine is null");
+            return;
         }
-    }
-}
+            if (car.getCount() > 0 && car.getEngine().getPower() > 200) {
+                System.out.println("The car is ready for sale");
+            } else if (car.getCount() == 0 && car.getEngine().getPower() < 200) {
+                System.out.println("Car is not available and low power");
+            } else if (car.getCount() == 0) {
+                System.out.println("Car is not available");
+            } else if
+                (car.getEngine().getPower() < 200) {
+                    System.out.println("Low power");
+                }else {
+                System.out.println("The engine is 0");
+            }
+            }
+
+            public PassengerCar  createPassengerCar(){
+        PassengerCar passengerCar = new PassengerCar();
+        Color color = randomColor();
+        return passengerCar;
+            }
+            public Truck createTruck(){
+        Truck truck = new Truck();
+        Color color = randomColor();
+        return truck;
+            }
+        }
+
 

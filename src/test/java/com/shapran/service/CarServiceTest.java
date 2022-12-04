@@ -1,6 +1,7 @@
 package com.shapran.service;
 
 import com.shapran.model.Car;
+import com.shapran.model.PassengerCar;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.util.RandomGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -79,7 +80,7 @@ class CarServiceTest {
 
     @Test
     void find(){
-        Car expected = new Car();
+        Car expected = new PassengerCar();
         String id = "123";
         Mockito.when(repository.getById("123")).thenReturn(expected);
         Car actual = target.find(id);
@@ -110,7 +111,7 @@ class CarServiceTest {
 
     @org.junit.jupiter.api.Test
     void delete() {
-        Car expected = new Car();
+        Car expected = new PassengerCar();
         String id = "123";
         Mockito.when(repository.getById("123")).thenReturn(expected);
         Car actual = target.find(id);
@@ -129,7 +130,7 @@ class CarServiceTest {
 
     @org.junit.jupiter.api.Test
     void print() {
-        Assertions.assertDoesNotThrow(() -> target.print(new Car()));
+        Assertions.assertDoesNotThrow(() -> target.print(new PassengerCar()));
     }
 
 }
