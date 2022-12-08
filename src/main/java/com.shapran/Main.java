@@ -3,6 +3,7 @@ package com.shapran;
 import com.shapran.model.Car;
 import com.shapran.model.PassengerCar;
 import com.shapran.model.Truck;
+import com.shapran.model.Type;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.service.CarService;
 import com.shapran.util.RandomGenerator;
@@ -21,10 +22,7 @@ public class Main {
 //        carService.check(car3);
 //        System.out.println(carService.create(random));
 
-        PassengerCar passengerCar = carService.createPassengerCar();
-        Truck truck = carService.createTruck();
+        PassengerCar passengerCar = carService.createPassengerCar(Type.CAR);
         System.out.println(passengerCar);
-        System.out.println(truck);
-
     }
 }

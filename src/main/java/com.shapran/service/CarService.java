@@ -15,7 +15,7 @@ public class CarService {
         this.carArrayRepository = carArrayRepository;
     }
 
-    public Car createCar() {
+    public Car createCar(Type type) {
         Car car = new PassengerCar();
         car.setManufacturer(randomString());
         car.setEngine(new Engine(randomString()));
@@ -26,6 +26,13 @@ public class CarService {
         return car;
 
     }
+    public boolean carEquals(Car bmw, Car audi) {
+        if (bmw.getClass().equals(audi.getClass()) && bmw.hashCode() == audi.hashCode()) {
+            return bmw.equals(audi);
+        } else {
+            return false;
+        }
+    }
 
     public int create(RandomGenerator randomGenerator) {
         int count = randomGenerator.randomNumberCar();
@@ -33,7 +40,7 @@ public class CarService {
             return -1;
         } else {
             for (int i = 1; i <= count; i++) {
-                print(createCar());
+                print(createCar(Type.CAR));
             }
             return count;
         }
@@ -106,16 +113,16 @@ public class CarService {
             }
             }
 
-            public PassengerCar  createPassengerCar(){
+            public PassengerCar  createPassengerCar(Type car){
         PassengerCar passengerCar = new PassengerCar();
         Color color = randomColor();
         return passengerCar;
             }
-            public Truck createTruck(){
-        Truck truck = new Truck();
-        Color color = randomColor();
-        return truck;
-            }
+//            public Truck createTruck(){
+//        Truck truck = new Truck();
+//        Color color = randomColor();
+//        return truck;}
+
         }
 
 
