@@ -2,6 +2,7 @@ package com.shapran.service;
 
 import com.shapran.model.Car;
 import com.shapran.model.PassengerCar;
+import com.shapran.model.Type;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.util.RandomGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +27,7 @@ class CarServiceTest {
 
     @org.junit.jupiter.api.Test
     void createCar() {
-        final Car car = target.createCar();
+        final Car car = target.createCar(Type.CAR);
         Assertions.assertNotNull(car);
         Assertions.assertNotNull(car.getId());
 
