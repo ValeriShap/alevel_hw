@@ -38,7 +38,7 @@ class CarServiceTest {
         int expected = 5;
         Mockito.when(randomGenerator.randomNumberCar()).thenReturn(5);
 
-        int actual = target.create(randomGenerator);
+        int actual = target.create();
 
         Assertions.assertEquals(expected,actual);
     }
@@ -48,7 +48,7 @@ class CarServiceTest {
         int expected = -1;
 
         Mockito.when(randomGenerator.randomNumberCar()).thenReturn(0);
-        int actual = target.create(randomGenerator);
+        int actual = target.create();
 
         Assertions.assertEquals(expected,actual);
     }
@@ -58,7 +58,7 @@ class CarServiceTest {
         int expected = -1;
 
         Mockito.when(randomGenerator.randomNumberCar()).thenReturn(-3);
-        int actual = target.create(randomGenerator);
+        int actual = target.create();
 
         Assertions.assertEquals(expected,actual);
     }

@@ -1,14 +1,17 @@
 package com.shapran.service;
 
+import com.shapran.exception.UserInputException;
 import com.shapran.model.*;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.util.RandomGenerator;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 
 public class CarService {
     private final CarArrayRepository carArrayRepository;
+    private final RandomGenerator randomGenerator = new RandomGenerator();
     private Random random = new Random();
 
     public CarService(final CarArrayRepository carArrayRepository) {
@@ -17,11 +20,11 @@ public class CarService {
 
     public Car createCar(Type type) {
         Car car = new PassengerCar();
-        car.setManufacturer(randomString());
-        car.setEngine(new Engine(randomString()));
-        car.setColor(randomColor());
-        car.setCount(randomNumber());
-        car.setPrice(randomNumber());
+        car.setManufacturer(randomGenerator.randomString());
+        car.setEngine(new Engine(randomGenerator.randomString()));
+        car.setColor(randomGenerator.randomColor());
+        car.setCount(randomGenerator.randomNumber());
+        car.setPrice(randomGenerator.randomNumber());
         carArrayRepository.save(car);
         return car;
 
@@ -34,7 +37,45 @@ public class CarService {
         }
     }
 
-    public int create(RandomGenerator randomGenerator) {
+    public void printManufacturerAndCount(Car car){
+        Optional.ofNullable(car).ifPresent(x -> {
+            System.out.printf("Manufaccturer: %s, count: %d%n", x.getManufacturer(), x.getCount());
+        });
+    }
+
+    public void printColor(Car car){
+        Optional<Car> carOptional = Optional.ofNullable(car);
+        Car car1 = carOptional.orElse(createCar(Type.CAR));
+        System.out.printf("Color is: " + car1.getColor());
+    }
+
+    public void checkCount(Car car) throws UserInputException {
+        Optional<Car> carOptional = Optional.ofNullable(car);
+        Car filterCar = carOptional
+                .filter(c-> c.getCount() > 10)
+                .orElseThrow(UserInputException:: new);
+        System.out.printf("Manufaccturer: %s, count: %d%n" + filterCar.getManufacturer(), filterCar.getCount());
+    }
+
+    public void printEngineInfo(Car car){
+        Optional<Car> carOptional = Optional.ofNullable(car);
+        Car randomCar = carOptional.orElseGet(() -> {
+            System.out.print("Create a new random car");
+            return createRandomCar();
+        });
+        carOptional.map(Engine -> {
+            return Engine.getEngine().getPower();
+        }).ifPresent(power -> System.out.println("Engine power: " + power));
+    }
+
+    public void printInfo(Car car){
+        Optional<Car> carOptional = Optional.ofNullable(car);
+        carOptional.ifPresentOrElse(
+                b -> print(b),
+                () -> print(createRandomCar()));
+    }
+
+    public int create() {
         int count = randomGenerator.randomNumberCar();
         if (count <= 0) {
             return -1;
@@ -73,25 +114,8 @@ public class CarService {
         System.out.println(car);
     }
 
-    private String randomString() {
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 10; i++) {
-            int index = random.nextInt(alphabet.length());
-            sb.append(alphabet.charAt(random.nextInt(alphabet.length() - 1)));
-        }
-        return sb.toString();
-    }
-
-    private Color randomColor() {
-        Color[] colors = Color.values();
-        int randomColor = random.nextInt(colors.length);
-        return colors[randomColor];
-    }
-
-    private int randomNumber() {
-        return random.nextInt(5000, 75000);
+    public Car createRandomCar(){
+        return createCar(randomGenerator.randomType());
     }
 
     public static void check(Car car) {
@@ -115,7 +139,7 @@ public class CarService {
 
             public PassengerCar  createPassengerCar(Type car){
         PassengerCar passengerCar = new PassengerCar();
-        Color color = randomColor();
+        Color color = randomGenerator.randomColor();
         return passengerCar;
             }
 //            public Truck createTruck(){
