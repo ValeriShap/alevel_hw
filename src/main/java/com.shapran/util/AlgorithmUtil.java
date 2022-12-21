@@ -7,12 +7,14 @@ public class AlgorithmUtil {
     static CarArrayRepository repository = new CarArrayRepository();
     public static Car[] bubbleSort(Car[] cars){
         boolean sort = false;
-        for (int i = 0; i < cars.length-1; i++){
-            if ((cars[i].getId().compareTo(cars[i+1].getId()))> 0){
-                Car min = cars[i+1];
-                cars[i+1] = cars[i];
-                cars[i] = min;
-                sort = true;
+        while (!sort) {
+            sort = true;
+            for (int i = 0; i < cars.length - 1; i++) {
+                if (cars[i].getId().compareTo(cars[i + 1].getId()) > 0) {
+                    Car min = cars[i + 1];
+                    cars[i + 1] = cars[i];
+                    cars[i] = min;
+                }
             }
         }
         return cars;
