@@ -44,9 +44,8 @@ public class CarService {
     }
 
     public void printColor(Car car){
-        Optional<Car> carOptional = Optional.ofNullable(car);
-        Car car1 = carOptional.orElse(createCar(Type.CAR));
-        System.out.printf("Color is: " + car1.getColor());
+        Car car1 = Optional.ofNullable(car).orElse(createCar(Type.CAR));
+        System.out.printf("Color of: " + car1.getId() + " " + car1.getColor());
     }
 
     public void checkCount(Car car) throws UserInputException {
@@ -73,6 +72,12 @@ public class CarService {
         carOptional.ifPresentOrElse(
                 b -> print(b),
                 () -> print(createRandomCar()));
+    }
+
+    public void createCar(Type type, int count) {
+        for (int i = 0; i < count; i++) {
+            createCar(type);
+        }
     }
 
     public int create() {
