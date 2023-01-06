@@ -5,9 +5,8 @@ import com.shapran.model.*;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.util.RandomGenerator;
 
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CarService {
     private final CarArrayRepository carArrayRepository;
@@ -147,6 +146,29 @@ public class CarService {
         Color color = randomGenerator.randomColor();
         return passengerCar;
             }
+
+            public HashMap<String, Integer> getMapManufacturerAndCount(Car[] cars){
+                HashMap<String,Integer> map = new  HashMap<>();
+                for (Car car: cars){
+                    map.put(car.getManufacturer(), car.getCount());
+                }
+                return map;
+            }
+
+            public Map<String, List<Car>> getMapEngineAndPower(Car[] cars){
+                Map<String, List<Car>> collect = new HashMap<>();
+                for (Car car: cars )
+                        if (collect.containsKey(car.getEngine().getType())){
+                            collect.get(car.getEngine().getType()).add(car);
+                        }else {
+                            List<Car> carList = new ArrayList<>();
+                            carList.add(car);
+                            collect.put(car.getEngine().getType(), carList);
+                        }
+                return collect;
+            }
+
+
 //            public Truck createTruck(){
 //        Truck truck = new Truck();
 //        Color color = randomColor();
