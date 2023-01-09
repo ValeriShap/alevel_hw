@@ -6,6 +6,8 @@ import com.shapran.repository.CarArrayRepository;
 import com.shapran.util.RandomGenerator;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CarService {
@@ -166,6 +168,72 @@ public class CarService {
                             collect.put(car.getEngine().getType(), carList);
                         }
                 return collect;
+            }
+
+            public void findManafacturerByPrice(List<Car> cars, int price){
+        cars.stream()
+                .filter(car -> car.getPrice() > price)
+                .forEach(car -> System.out.println("Manafacturer: " + car.getManufacturer()));
+            }
+
+            public int countSum(List<Car> cars){
+        int sum = cars.stream()
+                .map(Car::getCount)
+                .reduce(0, (first, last) -> first + last);
+        return sum;
+            }
+
+            public LinkedHashMap<String, Type> mapToMap(List<Car> cars){
+        LinkedHashMap<String, Type> mapCar = cars.stream()
+                .sorted(Comparator.comparing(Car::getManufacturer))
+                .distinct()
+                .collect(Collectors.toMap(Car::getId, Car ::getType, (key1, key2) -> key1, LinkedHashMap::new));
+        return mapCar;
+            }
+
+            public void statistic(List<Car> cars){
+        IntSummaryStatistics statistics = cars.stream()
+                .mapToInt(Car::getPrice)
+                .summaryStatistics();
+                System.out.println("Statistic from price: " + statistics);
+            }
+
+            public void priceCheck(List<Car> cars){
+                Predicate<Car> isPricy = e -> e.getPrice() > 35000;
+                cars.stream()
+                        .filter(isPricy).forEach(System.out::println);
+            }
+
+            public Car mapToObject(Map<String, Object> map){
+                Function<Map<String, Object>, Car> fieldsMap = (map1 -> {
+                    if (map1.get("Type") ==Type.CAR){
+                        return new PassengerCar();
+                    }else if (map1.get("Type") == Type.TRUCK){
+                        return new Truck();
+                    }else{
+                        throw new NullPointerException("No such type");
+                    }
+                });
+
+                return fieldsMap.andThen(x ->{
+                 x.setManufacturer((String) map.get("Manufacturer"));
+                 x.setColor((Color) map.get("Color"));
+                 x.setCount((int) map.get("Count"));
+                 x.setPrice((int) map.get("Price"));
+                 return x;
+                })
+                        .apply(map);
+            }
+
+            public Map<Color, Integer> innerList(List<List<Car>> cars){
+       Map<Color,Integer> sortedCar = cars.stream()
+                .flatMap(Collection::stream)
+                .sorted(Comparator.comparing(Car::getColor))
+                .peek((car) -> {
+                    System.out.println(car);
+                })
+                .collect(Collectors.toMap(Car::getColor, Car::getCount, (item, lastItem) -> item));
+        return sortedCar;
             }
 
 

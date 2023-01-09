@@ -16,6 +16,8 @@ public abstract class Car {
     private Color color;
     protected int count;
     private int price;
+
+    private Type type;
     private Engine engine;
     private final Random random = new Random();
 
