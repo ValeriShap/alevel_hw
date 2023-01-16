@@ -5,9 +5,14 @@ import com.shapran.model.*;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.util.RandomGenerator;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CarService {
@@ -234,6 +239,27 @@ public class CarService {
                 })
                 .collect(Collectors.toMap(Car::getColor, Car::getCount, (item, lastItem) -> item));
         return sortedCar;
+            }
+
+            public Map<String,Object> fromFileToCar(String file){
+                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                InputStream input = loader.getResourceAsStream(file);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(input));
+                Map<String,Object> map = new HashMap<>();
+                List<String> collect = bufferedReader.lines().toList();
+                Pattern pattern = Pattern.compile("(\\w|-)+");
+                String key = null;
+                for (String s: collect){
+                    Matcher matcher = pattern.matcher(s);
+                    if (matcher.find()){
+                         key = matcher.group();
+                    }
+                    if (matcher.find()){
+                        String value = matcher.group();
+                        map.put(key,value);
+                    }
+                }
+                return map;
             }
 
 
