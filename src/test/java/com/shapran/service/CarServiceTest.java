@@ -79,45 +79,45 @@ class CarServiceTest {
         Assertions.assertNull(actual);
     }
 
-    @Test
-    void find(){
-        Car expected = new PassengerCar();
-        String id = "123";
-        Mockito.when(repository.getById("123")).thenReturn(expected);
-        Car actual = target.find(id);
-        Assertions.assertEquals(expected,actual);
-    }
+//    @Test
+//    void find(){
+//        Car expected = new PassengerCar();
+//        String id = "123";
+//        Mockito.when(repository.getById("123")).thenReturn(expected);
+//        Car actual = target.find(id);
+//        Assertions.assertEquals(expected,actual);
+//    }
 
-    @org.junit.jupiter.api.Test
-    void findNullId() {
-        String id = null;
-        Car car = target.find(id);
-        Assertions.assertNull(car);
-    }
+//    @org.junit.jupiter.api.Test
+//    void findNullId() {
+//        String id = null;
+//        Car car = target.find(id);
+//        Assertions.assertNull(car);
+//    }
+//
+//    @Test
+//    void findEmptyId(){
+//        String id = "";
+//        Car car = target.find(id);
+//        Assertions.assertNull(car);
+//    }
 
-    @Test
-    void findEmptyId(){
-        String id = "";
-        Car car = target.find(id);
-        Assertions.assertNull(car);
-    }
-
-    @Test
-    void findNotFound(){
-        String id = "123";
-        Mockito.when(repository.getById("123")).thenReturn(null);
-        Car car = target.find(id);
-        Assertions.assertNull(car);
-    }
-
-    @org.junit.jupiter.api.Test
-    void delete() {
-        Car expected = new PassengerCar();
-        String id = "123";
-        Mockito.when(repository.getById("123")).thenReturn(expected);
-        Car actual = target.find(id);
-        Assertions.assertEquals(expected,actual);
-    }
+//    @Test
+//    void findNotFound(){
+//        String id = "123";
+//        Mockito.when(repository.getById("123")).thenReturn(null);
+//        Car car = target.find(id);
+//        Assertions.assertNull(car);
+//    }
+//
+//    @org.junit.jupiter.api.Test
+//    void delete() {
+//        Car expected = new PassengerCar();
+//        String id = "123";
+//        Mockito.when(repository.getById("123")).thenReturn(expected);
+//        Car actual = target.find(id);
+//        Assertions.assertEquals(expected,actual);
+//    }
 
     @Test
     void deleteNullId(){

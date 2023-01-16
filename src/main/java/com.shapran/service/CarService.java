@@ -3,6 +3,7 @@ package com.shapran.service;
 import com.shapran.exception.UserInputException;
 import com.shapran.model.*;
 import com.shapran.repository.CarArrayRepository;
+import com.shapran.repository.Crud;
 import com.shapran.util.RandomGenerator;
 
 import java.io.BufferedReader;
@@ -16,7 +17,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CarService {
-    private final CarArrayRepository carArrayRepository;
+    private final Crud<Car> carArrayRepository;
+    private static CarService instance;
     private final RandomGenerator randomGenerator = new RandomGenerator();
     private Random random = new Random();
 
@@ -24,6 +26,22 @@ public class CarService {
         this.carArrayRepository = carArrayRepository;
     }
 
+    private CarService(final Crud<Car> repository){
+        this.carArrayRepository = repository;
+    }
+    public static CarService getInstance(){
+        if (instance == null){
+            instance = new CarService(CarArrayRepository.getInstance());
+        }
+        return instance;
+    }
+
+    public static CarService getInstance(final Crud<Car> repository){
+        if (instance == null){
+            instance = new CarService(repository);
+        }
+        return instance;
+    }
     public Car createCar(Type type) {
         Car car = new PassengerCar();
         car.setManufacturer(randomGenerator.randomString());
@@ -107,7 +125,7 @@ public class CarService {
         return carArrayRepository.getAll();
     }
 
-    public Car find(final String id) {
+    public Optional<Car> find(final String id) {
         if (id == null || id.isEmpty()) {
             return null;
         }
