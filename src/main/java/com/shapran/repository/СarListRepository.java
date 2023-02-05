@@ -1,6 +1,6 @@
 package com.shapran.repository;
 
-import com.shapran.container.CarList;
+import com.shapran.anotations.Singleton;
 import com.shapran.model.Car;
 
 import java.util.LinkedList;
@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 
+@Singleton
 public class СarListRepository implements Crud<Car> {
     private static final List<Car> CARS = new LinkedList<>();
     private static СarListRepository instance;

@@ -1,10 +1,11 @@
 package com.shapran.repository;
 
+import com.shapran.anotations.Singleton;
 import com.shapran.model.Car;
 import com.shapran.model.Color;
 
 import java.util.Optional;
-
+@Singleton
 public class CarArrayRepository implements Crud<Car> {
     private static Car[] cars = new Car[10];
     private static CarArrayRepository instance;

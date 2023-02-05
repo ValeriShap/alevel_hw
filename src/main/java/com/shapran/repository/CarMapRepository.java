@@ -1,5 +1,6 @@
 package com.shapran.repository;
 
+import com.shapran.anotations.Singleton;
 import com.shapran.model.Car;
 
 import java.util.LinkedHashMap;
@@ -7,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 
+@Singleton
 public class CarMapRepository implements Crud<Car> {
     private static final Map<String,Car> CAR_MAP = new LinkedHashMap();
     private static CarMapRepository instance;

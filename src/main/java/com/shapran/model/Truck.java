@@ -3,10 +3,6 @@ package com.shapran.model;
 public class Truck extends Car implements CountRestore{
     private int loadCapacity;
 
-    public Truck(int loadCapacity) {
-        this.loadCapacity = loadCapacity;
-    }
-
     public Truck(String manufacturer, Color color, Engine engine, int loadCapacity) {
         super(manufacturer, color, engine);
         this.loadCapacity = loadCapacity;

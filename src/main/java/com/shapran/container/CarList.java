@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 
-public class CarList <T extends Car >{
+public class CarList <T extends Car>{
 
     private Node first;
     private Node last;

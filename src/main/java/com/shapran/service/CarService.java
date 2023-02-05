@@ -1,9 +1,12 @@
 package com.shapran.service;
 
+import com.shapran.anotations.Autowired;
+import com.shapran.anotations.Singleton;
 import com.shapran.exception.UserInputException;
 import com.shapran.model.*;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.repository.Crud;
+import com.shapran.repository.Repository;
 import com.shapran.util.RandomGenerator;
 
 import java.io.BufferedReader;
@@ -16,12 +19,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+@Singleton
 public class CarService {
     private final Crud<Car> carArrayRepository;
     private static CarService instance;
     private final RandomGenerator randomGenerator = new RandomGenerator();
     private Random random = new Random();
 
+    @Autowired(CrudRepossitory = Crud.class)
     public CarService(final CarArrayRepository carArrayRepository) {
         this.carArrayRepository = carArrayRepository;
     }

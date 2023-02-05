@@ -1,7 +1,7 @@
 package com.shapran.util;
 
-import com.shapran.model.Color;
 import com.shapran.model.Type;
+import com.shapran.model.Color;
 
 import java.util.Random;
 
