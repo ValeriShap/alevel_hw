@@ -2,11 +2,10 @@ package com.shapran.service;
 
 import com.shapran.anotations.Autowired;
 import com.shapran.anotations.Singleton;
+import com.shapran.container.CarList;
 import com.shapran.exception.UserInputException;
 import com.shapran.model.*;
-import com.shapran.repository.CarArrayRepository;
-import com.shapran.repository.Crud;
-import com.shapran.repository.Repository;
+import com.shapran.repository.*;
 import com.shapran.util.RandomGenerator;
 
 import java.io.BufferedReader;
@@ -26,17 +25,16 @@ public class CarService {
     private final RandomGenerator randomGenerator = new RandomGenerator();
     private Random random = new Random();
 
-    @Autowired(CrudRepossitory = Crud.class)
-    public CarService(final CarArrayRepository carArrayRepository) {
-        this.carArrayRepository = carArrayRepository;
-    }
-
-    private CarService(final Crud<Car> repository){
+//    public CarService(final CarArrayRepository carArrayRepository) {
+//        this.carArrayRepository = carArrayRepository;
+//    }
+    @Autowired(CrudRepossitory = CarMapRepository.class)
+    public CarService(final Crud<Car> repository){
         this.carArrayRepository = repository;
     }
     public static CarService getInstance(){
         if (instance == null){
-            instance = new CarService(CarArrayRepository.getInstance());
+            instance = new CarService(CarMapRepository.getInstance());
         }
         return instance;
     }
@@ -122,11 +120,11 @@ public class CarService {
     }
 
     public void printAll() {
-        final Car[] all = carArrayRepository.getAll();
-        System.out.println(Arrays.toString(all));
+        final List<Car> all = carArrayRepository.getAll();
+        System.out.println(all);
     }
 
-    public Car[] getAll() {
+    public List<Car> getAll() {
         return carArrayRepository.getAll();
     }
 

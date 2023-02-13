@@ -36,8 +36,10 @@ public class AnnotationProcessor {
                         Class<? extends Crud> repository = constructor.getDeclaredAnnotation(Autowired.class).CrudRepossitory();
                         try {
                             Object o = constructor.newInstance(cache.get(repository));
+                            System.out.println(o);
                             if (!cache.containsKey(clas)) {
                                 cache.put(clas, o);
+                                System.out.println("Object: " + o + " is cached");
                             }
                         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                             e.printStackTrace();
@@ -49,13 +51,13 @@ public class AnnotationProcessor {
 
     private void createCache(Class<?> clas){
         Method getInstance;
+        Object o;
         try {
-            getInstance = clas.getMethod("getInstance");
-            getInstance.setAccessible(true);
-            getInstance.invoke(clas);
+            getInstance = clas.getDeclaredMethod("getInstance");
+            o = getInstance.invoke(clas);
         }catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e){
             throw new RuntimeException(e);
         }
-        cache.put(clas,getInstance);
+        cache.put(clas,o);
     }
 }

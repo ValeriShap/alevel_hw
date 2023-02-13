@@ -1,5 +1,11 @@
 package com.shapran;
 
+import com.shapran.model.Car;
+import com.shapran.model.Order;
+import com.shapran.model.Type;
+import com.shapran.repository.CarJdbcRepository;
+import com.shapran.repository.JdbcManager;
+import com.shapran.repository.OrderJDBCRepository;
 import com.shapran.util.AlgorithmUtil;
 import com.shapran.util.AnnotationProcessor;
 import com.shapran.util.RandomGenerator;
@@ -7,16 +13,38 @@ import com.shapran.repository.CarArrayRepository;
 import com.shapran.service.CarService;
 
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        CarService carService = new CarService(new CarJdbcRepository());
+        Car car1 = carService.createCar(Type.CAR);
+        Car car2 = carService.createCar(Type.CAR);
+        Car car3 = carService.createCar(Type.CAR);
+        Car car4 = carService.createCar(Type.TRUCK);
+        Car car5 = carService.createCar(Type.TRUCK);
 
-        CarService carService = new CarService(new CarArrayRepository());
-        RandomGenerator random = new RandomGenerator();
-        AlgorithmUtil algorithmUtil = new AlgorithmUtil();
+        System.out.println(car2);
+//        Order order = new Order();
+//        order.addCarToOrder(order,car1);
+//        order.addCarToOrder(order,car2);
+//        order.addCarToOrder(order,car3);
+//        order.addCarToOrder(order,car4);
+//        order.addCarToOrder(order,car5);
 //
-//        carService.createCar(Type.CAR, 5);
+//        OrderJDBCRepository orderRepository = OrderJDBCRepository.getInstance();
+//        orderRepository.save(order);
+//        System.out.println(order);
+//        System.out.println(Arrays.toString(new List[]{carService.getAll()}));
+//        String id = carService.getAll().get(0).getId();
+//        System.out.println(carService.find(id) +" FOUND CAR");
+//        carService.delete(id);
+//        System.out.println(carService.find(id) + " AFTER DELETE");
+//        System.out.println(Arrays.toString(new List[]{orderRepository.getAll()}));
+
 //        carService.printAll();
 //        Car[] cars = carService.getAll();
 //        Car search = cars[0];
@@ -56,12 +84,15 @@ public class Main {
 //        System.out.println(xmlFile);
 //        System.out.println(jsonFile);
 
-        AnnotationProcessor annotationProcessor = new AnnotationProcessor();
-        annotationProcessor.getSingleton();
-        System.out.println(AnnotationProcessor.cache.values());
+//        AnnotationProcessor annotationProcessor = new AnnotationProcessor();
+//        annotationProcessor.getSingleton();
+//        System.out.println(AnnotationProcessor.cache.values());
+//
+//        annotationProcessor.getAutowired();
+//        System.out.println(AnnotationProcessor.cache.values());
 
-        annotationProcessor.getAutowired();
-        System.out.println(AnnotationProcessor.cache.values());
+//        Connection connection = JdbcManager.getConnection();
+//        System.out.println(connection.getCatalog());
 
     }
 }
