@@ -1,15 +1,10 @@
 package com.shapran;
 
-import com.shapran.container.CarComparator;
-import com.shapran.container.CarTree;
-import com.shapran.model.Car;
-import com.shapran.model.PassengerCar;
-import com.shapran.model.Truck;
-import com.shapran.model.Type;
+import com.shapran.util.AlgorithmUtil;
+import com.shapran.util.AnnotationProcessor;
+import com.shapran.util.RandomGenerator;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.service.CarService;
-import com.shapran.util.AlgorithmUtil;
-import com.shapran.util.RandomGenerator;
 
 
 import java.util.*;
@@ -55,11 +50,18 @@ public class Main {
 //        Map<String, List<Car>> mapPower = carService.getMapEngineAndPower(carService.getAll());
 //        System.out.println(mapPower.toString());
 
-        Map<String,Object> xmlFile = carService.fromFileToCar("car.xml");
-        Map<String,Object> jsonFile = carService.fromFileToCar("car.json");
+//        Map<String,Object> xmlFile = carService.fromFileToCar("car.xml");
+//        Map<String,Object> jsonFile = carService.fromFileToCar("car.json");
+//
+//        System.out.println(xmlFile);
+//        System.out.println(jsonFile);
 
-        System.out.println(xmlFile);
-        System.out.println(jsonFile);
+        AnnotationProcessor annotationProcessor = new AnnotationProcessor();
+        annotationProcessor.getSingleton();
+        System.out.println(AnnotationProcessor.cache.values());
+
+        annotationProcessor.getAutowired();
+        System.out.println(AnnotationProcessor.cache.values());
 
     }
 }
