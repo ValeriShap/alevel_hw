@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,13 +17,9 @@ public class Order {
     private Date date;
 
     public Order() {
-        this.order_id = UUID.randomUUID().toString();
+        order_id = UUID.randomUUID().toString();
         date = Date.valueOf(LocalDate.now());
-    }
-
-    public Order(String id, Date date) {
-        this.order_id = id;
-        this.date = date;
+        cars = new ArrayList<>();
     }
 
     public void addCarToOrder(Order order, Car car){

@@ -12,10 +12,7 @@ import com.shapran.util.RandomGenerator;
 import com.shapran.repository.CarArrayRepository;
 import com.shapran.service.CarService;
 
-
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.*;
 
 public class Main {
@@ -27,23 +24,23 @@ public class Main {
         Car car4 = carService.createCar(Type.TRUCK);
         Car car5 = carService.createCar(Type.TRUCK);
 
-        System.out.println(car2);
-//        Order order = new Order();
-//        order.addCarToOrder(order,car1);
-//        order.addCarToOrder(order,car2);
-//        order.addCarToOrder(order,car3);
-//        order.addCarToOrder(order,car4);
-//        order.addCarToOrder(order,car5);
-//
-//        OrderJDBCRepository orderRepository = OrderJDBCRepository.getInstance();
-//        orderRepository.save(order);
-//        System.out.println(order);
-//        System.out.println(Arrays.toString(new List[]{carService.getAll()}));
-//        String id = carService.getAll().get(0).getId();
-//        System.out.println(carService.find(id) +" FOUND CAR");
-//        carService.delete(id);
-//        System.out.println(carService.find(id) + " AFTER DELETE");
-//        System.out.println(Arrays.toString(new List[]{orderRepository.getAll()}));
+        Order order = new Order();
+        order.addCarToOrder(order, car1);
+        order.addCarToOrder(order, car2);
+        order.addCarToOrder(order, car3);
+        order.addCarToOrder(order, car4);
+        order.addCarToOrder(order, car5);
+
+        OrderJDBCRepository orderRepository = OrderJDBCRepository.getInstance();
+        orderRepository.save(order);
+
+        List<Car> cars = carService.getAll();
+        System.out.println(cars);
+        String id = order.getCars().get(0).getId();
+        System.out.println(carService.find(id));
+        carService.delete(id);
+        System.out.println(carService.find(id));
+        System.out.println(orderRepository.getAll());
 
 //        carService.printAll();
 //        Car[] cars = carService.getAll();

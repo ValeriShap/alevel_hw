@@ -9,7 +9,6 @@ public class JdbcManager {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres?currentSchema=public";
     private static final String USER = "postgres";
     private static final String PASS = "6494";
-    private static Connection connection;
 
     private JdbcManager() {
     }

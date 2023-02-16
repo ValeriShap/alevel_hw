@@ -11,36 +11,25 @@ import java.util.Optional;
 public class EngineJDBCRepository extends CrudJdbc<Engine> {
     private static EngineJDBCRepository instance;
 
-    public static EngineJDBCRepository getInstance(){
-        if (instance == null){
+    public static EngineJDBCRepository getInstance() {
+        if (instance == null) {
             instance = new EngineJDBCRepository();
         }
         return instance;
     }
 
-    private EngineJDBCRepository(){
-        createTablesIfNotExists();
+    private EngineJDBCRepository() {
     }
 
     @SneakyThrows
-    private void createTablesIfNotExists(){
-        Connection connection = JdbcManager.getConnection();
-        Statement statement = connection.createStatement();
-        String createEngineTable = "CREATE TABLE IF NOT EXISTS engine(engine_id VARCHAR(40) PRIMARY KEY," +
-                " type VARCHAR(35) NOT NUL, power INT NOT NULL";
-        statement.execute(createEngineTable);
-        statement.close();
-        connection.close();
-    }
-    @SneakyThrows
     @Override
     public void save(Engine engine) {
-        connection.setAutoCommit(false);
-        String insertEngine = "INSERT INTO engine(type, power, engine_id) VALUES(?, ?, ?) ";
+        connection = JdbcManager.getConnection();
+        String insertEngine = "INSERT INTO engine(engine_id, type, power) VALUES(?, ?, ?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(insertEngine);
-        preparedStatement.setString(1, engine.getType());
-        preparedStatement.setInt(2, engine.getPower());
-        preparedStatement.setString(3, engine.getEngine_id());
+        preparedStatement.setString(1, engine.getEngine_id());
+        preparedStatement.setString(2, engine.getType());
+        preparedStatement.setInt(3, engine.getPower());
         preparedStatement.executeUpdate();
         close(preparedStatement);
     }
@@ -52,11 +41,11 @@ public class EngineJDBCRepository extends CrudJdbc<Engine> {
         String getAllEngine = "SELECT * FROM engine";
         PreparedStatement preparedStatement = connection.prepareStatement(getAllEngine);
         ResultSet resultSet = preparedStatement.executeQuery(getAllEngine);
-        while (resultSet.next()){
+        while (resultSet.next()) {
             engines.add(new Engine(resultSet.getString("type"), resultSet.getInt("power"),
                     resultSet.getString("engine_id")));
-            close(preparedStatement);
         }
+        close(preparedStatement);
         return engines;
     }
 
@@ -68,8 +57,8 @@ public class EngineJDBCRepository extends CrudJdbc<Engine> {
         preparedStatement.setString(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Optional<Engine> engine = Optional.empty();
-        if (resultSet.next()){
-           engine = Optional.of(createEngine(resultSet));
+        if (resultSet.next()) {
+            engine = Optional.of(createEngine(resultSet));
         }
         close(preparedStatement);
         return engine;
