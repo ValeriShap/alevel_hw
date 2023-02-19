@@ -16,15 +16,15 @@ import org.reflections.Reflections;
 public class AnnotationProcessor {
     public static final Map<Class, Object> cache = new HashMap<>();
 
-    public void getSingleton(){
+    public void getSingleton() {
         Reflections reflections = new Reflections("com.shapran.repository");
         Set<Class<?>> singletonClass = reflections.getTypesAnnotatedWith(Singleton.class);
-        for (Class<?> clas: singletonClass){
+        for (Class<?> clas : singletonClass) {
             createCache(clas);
         }
     }
 
-    public void getAutowired(){
+    public void getAutowired() {
         Reflections reflections = new Reflections("com.shapran");
         Set<Class<?>> annotatedSingletonClass = reflections.getTypesAnnotatedWith(Singleton.class);
         for (Class<?> clas : annotatedSingletonClass) {
@@ -46,18 +46,18 @@ public class AnnotationProcessor {
                         }
                     });
         }
-        }
+    }
 
 
-    private void createCache(Class<?> clas){
+    private void createCache(Class<?> clas) {
         Method getInstance;
         Object o;
         try {
             getInstance = clas.getDeclaredMethod("getInstance");
             o = getInstance.invoke(clas);
-        }catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e){
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        cache.put(clas,o);
+        cache.put(clas, o);
     }
 }
