@@ -4,6 +4,7 @@ import com.shapran.anotations.Singleton;
 import com.shapran.model.Car;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiPredicate;
@@ -39,9 +40,9 @@ public class CarMapRepository implements Crud<Car> {
     }
 
     @Override
-    public Car[] getAll(){
+    public List<Car> getAll(){
         return CAR_MAP
-                .values().toArray(new Car[0]);
+                .values().stream().toList();
     }
 
     @Override

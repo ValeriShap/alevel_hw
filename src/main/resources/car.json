@@ -1,0 +1,15 @@
+{
+  "car" : {
+    "id": "2d30afd3-f8fe-4334-8fd6-4acdd1173b87",
+    "manufacturer": "BMW",
+    "color": "GREY",
+    "count": "5",
+    "price": "25000",
+    "type": "TRUCK",
+    "engine": {
+      "type": "DIESEL",
+      "power": "200"
+    },
+    "loadCapacity": "8"
+  }
+}

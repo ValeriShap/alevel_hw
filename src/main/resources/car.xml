@@ -1,0 +1,13 @@
+<car>
+    <id>2d30afd3-f8fe-4334-8fd6-4acdd1173b87</id>
+    <manufacturer>BMW</manufacturer>
+    <color>PINK</color>
+    <count>5</count>
+    <price>20000</price>
+    <type>CAR</type>
+    <engine>
+        <type>GAS</type>
+        <power>200</power>
+    </engine>
+    <passengerCount>4</passengerCount>
+</car>

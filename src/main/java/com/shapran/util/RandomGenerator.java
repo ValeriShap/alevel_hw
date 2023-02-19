@@ -8,7 +8,7 @@ import java.util.Random;
 public class RandomGenerator {
     private Random random = new Random();
     public int randomNumberCar(){
-         return random.nextInt(0,11);
+         return random.nextInt(0,6);
     }
 
     public Type randomType(){
@@ -35,4 +35,5 @@ public class RandomGenerator {
         }
         return sb.toString();
     }
+
 }

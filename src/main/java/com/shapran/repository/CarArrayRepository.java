@@ -4,6 +4,7 @@ import com.shapran.anotations.Singleton;
 import com.shapran.model.Car;
 import com.shapran.model.Color;
 
+import java.util.List;
 import java.util.Optional;
 @Singleton
 public class CarArrayRepository implements Crud<Car> {
@@ -29,9 +30,9 @@ public class CarArrayRepository implements Crud<Car> {
         }
     }
     @Override
-    public Car[] getAll() {
+    public List<Car> getAll() {
         final int newLength = foundLength();
-        final Car[] newCars = new Car[newLength];
+        final List<Car> newCars = List.of(new Car[newLength]);
         System.arraycopy(cars, 0, newCars, 0, newLength);
         return newCars;
     }
