@@ -2,9 +2,7 @@ package com.shapran;
 
 import com.shapran.controller.CarController;
 import com.shapran.controller.OrderContoller;
-import com.shapran.model.Car;
-import com.shapran.model.Order;
-import com.shapran.model.Type;
+import com.shapran.model.*;
 import com.shapran.repository.CarJdbcRepository;
 import com.shapran.repository.JdbcManager;
 import com.shapran.repository.OrderJDBCRepository;
@@ -99,30 +97,39 @@ public class Main {
 //        Connection connection = JdbcManager.getConnection();
 //        System.out.println(connection.getCatalog());
 
-        final CrudHibernate<Car> carCrudHibernate = new CarHibernateRepository();
-        final EngineHibernateService engineHibernateService = new EngineHibernateService();
-        final CarHibernateService carHibernateService = new CarHibernateService(carCrudHibernate, engineHibernateService);
-        final CarController carController = new CarController(carHibernateService);
-        final CrudHibernate<Order> orderCrudHibernate = new OrderHibernateRepository();
-        final OrderHibernateService orderHibernateService = new OrderHibernateService(orderCrudHibernate, carHibernateService);
-        final OrderContoller orderContoller = new OrderContoller(orderHibernateService);
-
-        String orderId = orderContoller.create();
-        List<Order> orders = orderContoller.getAll();
-        System.out.println("All orders: " + orders);
-
-        Optional<Order> order = orderContoller.getById(orderId);
-        System.out.println("Is the id of the BD and the generated order id identical: " +
-                orderId.equals(order.orElseThrow().getOrder_id()));
-
-        List<Car> cars = carController.getAll();
-        System.out.println("All cars: " + cars);
-
-        Optional<Car> carOptional = Optional.ofNullable(cars.get(0));
-        carOptional.ifPresent(car -> carController.delete(car.getId()));
-
-        List<Car> deleteCar = carController.getAll();
-        System.out.println("Delete first car: "+ deleteCar);
+//        final CrudHibernate<Car> carCrudHibernate = new CarHibernateRepository();
+//        final EngineHibernateService engineHibernateService = new EngineHibernateService();
+//        final CarHibernateService carHibernateService = new CarHibernateService(carCrudHibernate, engineHibernateService);
+//        final CarController carController = new CarController(carHibernateService);
+//        final CrudHibernate<Order> orderCrudHibernate = new OrderHibernateRepository();
+//        final OrderHibernateService orderHibernateService = new OrderHibernateService(orderCrudHibernate, carHibernateService);
+//        final OrderContoller orderContoller = new OrderContoller(orderHibernateService);
+//
+//        String orderId = orderContoller.create();
+//        List<Order> orders = orderContoller.getAll();
+//        System.out.println("All orders: " + orders);
+//
+//        Optional<Order> order = orderContoller.getById(orderId);
+//        System.out.println("Is the id of the BD and the generated order id identical: " +
+//                orderId.equals(order.orElseThrow().getOrder_id()));
+//
+//        List<Car> cars = carController.getAll();
+//        System.out.println("All cars: " + cars);
+//
+//        Optional<Car> carOptional = Optional.ofNullable(cars.get(0));
+//        carOptional.ifPresent(car -> carController.delete(car.getId()));
+//
+//        List<Car> deleteCar = carController.getAll();
+//        System.out.println("Delete first car: "+ deleteCar);
+        RandomGenerator randomGenerator = new RandomGenerator();
+        CarFactory carFactory = new CarFactory();
+        Car car = carFactory.createCar(randomGenerator.randomType())
+                .addManufacturer(randomGenerator.randomString())
+                .addColor(randomGenerator.randomColor())
+                .addCount(randomGenerator.randomNumberCar())
+                .addPrice(randomGenerator.randomNumber())
+                .addEngine(new Engine())
+                .build();
+        System.out.println(car);
     }
-
 }

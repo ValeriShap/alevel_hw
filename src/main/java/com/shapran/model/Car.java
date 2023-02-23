@@ -50,4 +50,43 @@ public abstract class Car {
     public Type getType(Type type){
         return type;
     }
+
+   public static abstract class CarBuilder{
+        protected String id;
+        protected String manufacturer;
+        protected Color color;
+        protected int count;
+        protected int price;
+        protected Engine engine;
+
+        public CarBuilder getId(){
+            this.id = UUID.randomUUID().toString();
+            return this;
+        }
+        public CarBuilder addManufacturer(String manufacturer){
+            this.manufacturer = manufacturer;
+            return this;
+        }
+        public CarBuilder addColor(Color color){
+            this.color = color;
+            return this;
+        }
+        public CarBuilder addCount(int count){
+            this.count = count;
+            return this;
+        }
+        public CarBuilder addPrice(int price){
+            if (price < 1000){
+                System.out.println("Price of the car is low");
+            }
+            this.price = price;
+            return this;
+        }
+        public CarBuilder addEngine(Engine engine){
+            this.engine = engine;
+            return this;
+        }
+        public abstract Car build();
+
+    }
 }
