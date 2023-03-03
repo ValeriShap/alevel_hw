@@ -1,28 +1,18 @@
 package com.shapran;
 
-import com.shapran.controller.CarController;
-import com.shapran.controller.OrderContoller;
 import com.shapran.model.*;
-import com.shapran.repository.CarJdbcRepository;
-import com.shapran.repository.JdbcManager;
-import com.shapran.repository.OrderJDBCRepository;
-import com.shapran.repository.hibernate.CarHibernateRepository;
-import com.shapran.repository.hibernate.CrudHibernate;
-import com.shapran.repository.hibernate.OrderHibernateRepository;
-import com.shapran.service.hibernateService.CarHibernateService;
-import com.shapran.service.hibernateService.EngineHibernateService;
-import com.shapran.service.hibernateService.OrderHibernateService;
-import com.shapran.util.AlgorithmUtil;
-import com.shapran.util.AnnotationProcessor;
+import com.shapran.util.ThreadArrayUtil;
 import com.shapran.util.RandomGenerator;
-import com.shapran.repository.CarArrayRepository;
-import com.shapran.service.CarService;
 
 import java.sql.SQLException;
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+
+        ThreadArrayUtil threadArrayUtil = new ThreadArrayUtil();
+        threadArrayUtil.fillArray();
+        threadArrayUtil.sumArray();
+
 //        CarService carService = new CarService(new CarJdbcRepository());
 //        Car car1 = carService.createCar(Type.CAR);
 //        Car car2 = carService.createCar(Type.CAR);
@@ -121,15 +111,15 @@ public class Main {
 //
 //        List<Car> deleteCar = carController.getAll();
 //        System.out.println("Delete first car: "+ deleteCar);
-        RandomGenerator randomGenerator = new RandomGenerator();
-        CarFactory carFactory = new CarFactory();
-        Car car = carFactory.createCar(randomGenerator.randomType())
-                .addManufacturer(randomGenerator.randomString())
-                .addColor(randomGenerator.randomColor())
-                .addCount(randomGenerator.randomNumberCar())
-                .addPrice(randomGenerator.randomNumber())
-                .addEngine(new Engine())
-                .build();
-        System.out.println(car);
-    }
+//        RandomGenerator randomGenerator = new RandomGenerator();
+//        CarFactory carFactory = new CarFactory();
+//        Car car = carFactory.createCar(randomGenerator.randomType())
+//                .addManufacturer(randomGenerator.randomString())
+//                .addColor(randomGenerator.randomColor())
+//                .addCount(randomGenerator.randomNumberCar())
+//                .addPrice(randomGenerator.randomNumber())
+//                .addEngine(new Engine())
+//                .build();
+//        System.out.println(car);
+  }
 }
