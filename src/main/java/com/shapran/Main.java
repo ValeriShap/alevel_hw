@@ -1,17 +1,22 @@
 package com.shapran;
 
 import com.shapran.model.*;
+import com.shapran.util.ConcurrencyUtil;
 import com.shapran.util.ThreadArrayUtil;
 import com.shapran.util.RandomGenerator;
 
 import java.sql.SQLException;
+import java.util.concurrent.ConcurrentMap;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+        ConcurrencyUtil concurrencyUtil = new ConcurrencyUtil();
+        concurrencyUtil.createThreads();
+        concurrencyUtil.createThreadsAndWait();
 
-        ThreadArrayUtil threadArrayUtil = new ThreadArrayUtil();
-        threadArrayUtil.fillArray();
-        threadArrayUtil.sumArray();
+//        ThreadArrayUtil threadArrayUtil = new ThreadArrayUtil();
+//        threadArrayUtil.fillArray();
+//        threadArrayUtil.sumArray();
 
 //        CarService carService = new CarService(new CarJdbcRepository());
 //        Car car1 = carService.createCar(Type.CAR);
