@@ -32,19 +32,19 @@ public class Truck extends Car implements CountRestore{
         System.out.println("Count of truck - " + count);
     }
 
-    public static class TruckBuilder extends CarBuilder{
-        protected int loadCapacity;
-
-        public CarBuilder getLoadCapacity(int loadCapacity){
-            this.loadCapacity = loadCapacity;
-            return this;
-        }
-        @Override
-        public Car build() {
-            if (count == 0){
-                System.out.println("Car is not create");
-            }
-            return new Truck(manufacturer, color, engine, loadCapacity, type);
-        }
-    }
+//    public static class TruckBuilder extends CarBuilder{
+//        protected int loadCapacity;
+//
+//        public CarBuilder getLoadCapacity(int loadCapacity){
+//            this.loadCapacity = loadCapacity;
+//            return this;
+//        }
+//        @Override
+//        public Car build() {
+//            if (count == 0){
+//                System.out.println("Car is not create");
+//            }
+//            return new Truck(manufacturer, color, engine, loadCapacity, type);
+//        }
+//    }
 }

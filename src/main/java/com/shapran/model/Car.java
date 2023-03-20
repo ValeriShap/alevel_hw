@@ -25,7 +25,7 @@ public abstract class Car {
     protected int count;
     private int price;
 
-    private Type type;
+    public Type type;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "engine_id")
     private Engine engine;
